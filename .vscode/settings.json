@@ -1,0 +1,8 @@
+{
+    "terminal.integrated.env.linux": {
+        "PYTHONPATH": ".:${env:PYTHONPATH}"
+    },
+    "terminal.integrated.env.windows": {
+        "PYTHONPATH": ".;${env:PYTHONPATH}"
+    },
+}

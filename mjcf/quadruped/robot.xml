@@ -1,0 +1,159 @@
+<mujoco model="robot">
+    <compiler angle="radian" autolimits="true" />
+
+    <asset>
+        <mesh name="mainbody" file="stl/MainBody.stl" scale="0.001 0.001 0.001" />
+        <mesh name="shell" file="stl/Shell.stl" scale="0.001 0.001 0.001" />
+
+        <mesh name="fls" file="stl/FrontLeftShoulder.stl" scale="0.001 0.001 0.001" />
+        <mesh name="flsc" file="stl/FrontLeftShoulderCover.stl" scale="0.001 0.001 0.001" />
+        <mesh name="fla" file="stl/FrontLeftArm.stl" scale="0.001 0.001 0.001" />
+        <mesh name="flw" file="stl/FrontLeftWrist.stl" scale="0.001 0.001 0.001" />
+        <mesh name="flf" file="stl/FrontLeftFoot.stl" scale="0.001 0.001 0.001" />
+
+        <mesh name="frs" file="stl/FrontRightShoulder.stl" scale="0.001 0.001 0.001" />
+        <mesh name="frsc" file="stl/FrontRightShoulderCover.stl" scale="0.001 0.001 0.001" />
+        <mesh name="fra" file="stl/FrontRightArm.stl" scale="0.001 0.001 0.001" />
+        <mesh name="frw" file="stl/FrontRightWrist.stl" scale="0.001 0.001 0.001" />
+        <mesh name="frf" file="stl/FrontRightFoot.stl" scale="0.001 0.001 0.001" />
+
+        <mesh name="rls" file="stl/RearLeftShoulder.stl" scale="0.001 0.001 0.001" />
+        <mesh name="rlsc" file="stl/RearLeftShoulderCover.stl" scale="0.001 0.001 0.001" />
+        <mesh name="rla" file="stl/RearLeftArm.stl" scale="0.001 0.001 0.001" />
+        <mesh name="rlw" file="stl/RearLeftWrist.stl" scale="0.001 0.001 0.001" />
+        <mesh name="rlf" file="stl/RearLeftFoot.stl" scale="0.001 0.001 0.001" />
+
+        <mesh name="rrs" file="stl/RearRightShoulder.stl" scale="0.001 0.001 0.001" />
+        <mesh name="rrsc" file="stl/RearRightShoulderCover.stl" scale="0.001 0.001 0.001" />
+        <mesh name="rra" file="stl/RearRightArm.stl" scale="0.001 0.001 0.001" />
+        <mesh name="rrw" file="stl/RearRightWrist.stl" scale="0.001 0.001 0.001" />
+        <mesh name="rrf" file="stl/RearRightFoot.stl" scale="0.001 0.001 0.001" />
+    </asset>
+
+    <default>
+        <geom density="0" type="mesh" friction="1.0 0.3 0.3" quat="0.7071 0 0 0.7071" />
+        <joint damping="0.01" armature="0.01" frictionloss="0.01" actuatorfrcrange="-100 100" />
+    </default>
+
+    <worldbody>
+        <body name="base" pos="0 0 0.19">
+            <site name="imu" pos="0 0 0" />
+            <geom rgba="0.1 0.1 0.1 1" mesh="mainbody" mass="1.2" />
+            <geom rgba="0.92 0.83 0 1" mesh="shell" mass="0.1" />
+
+            <body name="front_left_shoulder_link">
+                <joint name="motor_front_left_shoulder" pos="0.10345 0.03875 0.0166" axis="1 0 0"
+                    range="-1 1" />
+                <geom rgba="0.1 0.1 0.1 1" mesh="fls" mass="0.1" />
+                <geom rgba="0.92 0.83 0 1" mesh="flsc" mass="0.015" />
+
+                <body name="front_left_arm_link">
+                    <joint name="motor_front_left_arm" pos="0.10345 0.09865 0.0065" axis="0 1 0"
+                        range="-0.97 2.17" />
+                    <geom rgba="0.1 0.1 0.1 1" mesh="fla" mass="0.13" />
+
+                    <body name="front_left_wrist_link">
+                        <joint name="motor_front_left_wrist" pos="0.13355 0.09865 -0.1006"
+                            axis="0 1 0" range="-2.59 0.1" />
+                        <geom rgba="0.1 0.1 0.1 1" mesh="flw" mass="0.1" />
+                        <geom rgba="0.6 0.6 0.6 1" mesh="flf" mass="0.01" friction="1.0 0.3 0.3"
+                            name="front_left_foot_geom" />
+                    </body>
+                </body>
+            </body>
+
+            <body name="front_right_shoulder_link">
+                <joint name="motor_front_right_shoulder" pos="0.10345 -0.03875 0.0166" axis="1 0 0"
+                    range="-1 1" />
+                <geom rgba="0.1 0.1 0.1 1" mesh="frs" mass="0.1" />
+                <geom rgba="0.92 0.83 0 1" mesh="frsc" mass="0.015" />
+
+                <body name="front_right_arm_link">
+                    <joint name="motor_front_right_arm" pos="0.10345 -0.09865 0.0065" axis="0 1 0"
+                        range="-0.97 2.17" />
+                    <geom rgba="0.1 0.1 0.1 1" mesh="fra" mass="0.13" />
+
+                    <body name="front_right_wrist_link">
+                        <joint name="motor_front_right_wrist" pos="0.13355 -0.09865 -0.1006"
+                            axis="0 1 0" range="-2.59 0.1" />
+                        <geom rgba="0.1 0.1 0.1 1" mesh="frw" mass="0.1" />
+                        <geom rgba="0.6 0.6 0.6 1" mesh="frf" mass="0.01" friction="1.0 0.3 0.3" />
+                    </body>
+                </body>
+            </body>
+
+            <body name="rear_left_shoulder_link">
+                <joint name="motor_rear_left_shoulder" pos="-0.10345 0.03875 0.0166" axis="1 0 0"
+                    range="-1 1" />
+                <geom rgba="0.1 0.1 0.1 1" mesh="rls" mass="0.1" />
+                <geom rgba="0.92 0.83 0 1" mesh="rlsc" mass="0.015" />
+
+                <body name="rear_left_arm_link">
+                    <joint name="motor_rear_left_arm" pos="-0.10345 0.09865 0.0065" axis="0 1 0"
+                        range="-0.97 2.17" />
+                    <geom rgba="0.1 0.1 0.1 1" mesh="rla" mass="0.13" />
+
+                    <body name="rear_left_wrist_link">
+                        <joint name="motor_rear_left_wrist" pos="-0.07655 0.09865 -0.1006"
+                            axis="0 1 0" range="-2.59 0.1" />
+                        <geom rgba="0.1 0.1 0.1 1" mesh="rlw" mass="0.1" />
+                        <geom rgba="0.6 0.6 0.6 1" mesh="rlf" mass="0.01" friction="1.0 0.3 0.3" />
+                    </body>
+                </body>
+            </body>
+
+            <body name="rear_right_shoulder_link">
+                <joint name="motor_rear_right_shoulder" pos="-0.10345 -0.03875 0.0166" axis="1 0 0"
+                    range="-1 1" />
+                <geom rgba="0.1 0.1 0.1 1" mesh="rrs" mass="0.1" />
+                <geom rgba="0.92 0.83 0 1" mesh="rrsc" mass="0.015" />
+
+                <body name="rear_right_arm_link">
+                    <joint name="motor_rear_right_arm" pos="-0.10345 -0.09865 0.0065" axis="0 1 0"
+                        range="-0.97 2.17" />
+                    <geom rgba="0.1 0.1 0.1 1" mesh="rra" mass="0.13" />
+
+                    <body name="rear_right_wrist_link">
+                        <joint name="motor_rear_right_wrist" pos="-0.07655 -0.09865 -0.1006"
+                            axis="0 1 0" range="-2.59 0.1" />
+                        <geom rgba="0.1 0.1 0.1 1" mesh="rrw" mass="0.1" />
+                        <geom rgba="0.6 0.6 0.6 1" mesh="rrf" mass="0.01" friction="1.0 0.3 0.3" />
+                    </body>
+                </body>
+            </body>
+        </body>
+    </worldbody>
+
+<contact>
+    <exclude body1="base" body2="front_left_arm_link" />
+    <exclude body1="base" body2="front_right_arm_link" />
+    <exclude body1="base" body2="rear_left_arm_link" />
+    <exclude body1="base" body2="rear_right_arm_link" />
+
+    <exclude body1="base" body2="front_left_shoulder_link" />
+    <exclude body1="base" body2="front_right_shoulder_link" />
+    <exclude body1="base" body2="rear_left_shoulder_link" />
+    <exclude body1="base" body2="rear_right_shoulder_link" />
+  </contact>
+
+    <actuator>
+        <position name="motor_front_left_shoulder" joint="motor_front_left_shoulder" kp="15" kv="1" ctrlrange="-1 1"/>
+        <position name="motor_front_left_arm" joint="motor_front_left_arm" kp="15" kv="1" ctrlrange="-0.97 2.17" />
+        <position name="motor_front_left_wrist" joint="motor_front_left_wrist" kp="15" kv="1" ctrlrange="-2.59 0.1" />
+        <position name="motor_front_right_shoulder" joint="motor_front_right_shoulder" kp="15" kv="1" ctrlrange="-1 1"/>
+        <position name="motor_front_right_arm" joint="motor_front_right_arm" kp="15" kv="1" ctrlrange="-0.97 2.17" />
+        <position name="motor_front_right_wrist" joint="motor_front_right_wrist" kp="15" kv="1" ctrlrange="-2.59 0.1" />
+        <position name="motor_rear_left_shoulder" joint="motor_rear_left_shoulder" kp="15" kv="1" ctrlrange="-1 1"/>
+        <position name="motor_rear_left_arm" joint="motor_rear_left_arm" kp="15" kv="1" ctrlrange="-0.97 2.17" />
+        <position name="motor_rear_left_wrist" joint="motor_rear_left_wrist" kp="15" kv="1" ctrlrange="-2.59 0.1" />
+        <position name="motor_rear_right_shoulder" joint="motor_rear_right_shoulder" kp="15" kv="1" ctrlrange="-1 1" />
+        <position name="motor_rear_right_arm" joint="motor_rear_right_arm" kp="15" kv="1" ctrlrange="-0.97 2.17" />
+        <position name="motor_rear_right_wrist" joint="motor_rear_right_wrist" kp="15" kv="1" ctrlrange="-2.59 0.1" />
+    </actuator>
+    <sensor>
+        <framequat name="imu_quat" objtype="site" objname="imu" />
+        <gyro name="imu_gyro" site="imu" />
+        <accelerometer name="imu_acc" site="imu" />
+        <velocimeter name="imu_vel" site="imu" />
+    </sensor>
+</mujoco>

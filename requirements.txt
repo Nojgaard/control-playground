@@ -1,0 +1,6 @@
+numpy
+mujoco
+dm_control
+ipykernel
+matplotlib
+mediapy
