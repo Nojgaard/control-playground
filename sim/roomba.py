@@ -11,15 +11,13 @@ from sim.observables import RobotObservables
 
 class Robot(Entity):
     def __init__(self):
-        self._model_path = os.path.join("mjcf", "biped", "robot.xml")
+        self._model_path = os.path.join("mjcf", "roomba", "robot.xml")
         super().__init__()
 
     def _build(self):
         self._model = mjcf.from_path(self._model_path)
-        self.joint_names = ["L_hip", "R_hip", "L_foot", "R_foot"]
-        self.mjcf_joints = [
-            self.mjcf_model.find("joint", name) for name in self.joint_names
-        ]
+        self.mjcf_joints = [a.joint for a in self.mjcf_model.find_all("actuator")]
+        print("JOINT", self.mjcf_joints)
 
     @property
     def mjcf_model(self):
@@ -33,7 +31,7 @@ class Robot(Entity):
         return super().observables
 
 
-class Biped(composer.Task):
+class Roomba(composer.Task):
     def __init__(self, control_timestep: float = 0.01):
         super().__init__()
 
@@ -55,12 +53,12 @@ class Biped(composer.Task):
     @property
     def wheel_radius(self):
         """Radius of the robot's wheels (in meters)."""
-        return 0.04
+        return 0.035
 
     @property
     def wheel_separation(self):
         """Distance between the wheels (in meters)."""
-        return 0.1
+        return 0.24
 
     @property
     def root_entity(self):
