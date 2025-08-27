@@ -30,7 +30,7 @@ Each robot comes with a complete physics model defined in MJCF (MuJoCo XML Forma
 
 1. **Clone the repository:**
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/Nojgaard/control-playground
    cd control-playground
    ```
 
