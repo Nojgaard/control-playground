@@ -50,13 +50,29 @@ Each robot comes with a complete physics model defined in MJCF (MuJoCo XML Forma
 
 ## Getting Started
 
+### Examining Robot Models
+
+You can explore each robot model directly using MuJoCo's built-in viewer:
+
+```bash
+python -m mujoco.viewer --mjcf mjcf/biped/robot.xml
+python -m mujoco.viewer --mjcf mjcf/quadruped/robot.xml
+```
+
+This is particularly helpful for understanding how each actuator affects the robot's movement. Use the control tab in the viewer to manually adjust each joint and observe the robot's response in real-time.
+
+**Useful viewer shortcuts:**
+- **R** or **Backspace** - Reset simulation
+- **T** - Toggle robot transparency
+- **F** - Show/hide forces applied to the robot
+
 ### Running the Simulations
 
 #### Biped Robot
 
-The biped robot is controlled through 4 actuators:
-- Hip joints (position control): Control robot height and balance
-- Wheel joints (velocity control): Control forward/backward movement
+The biped robot features 4 actuators for movement control:
+- **Hip joints** (position control): Adjust robot height and maintain balance
+- **Wheel joints** (velocity control): Control forward/backward locomotion
 
 ```bash
 python scripts/sim_biped.py
@@ -64,9 +80,9 @@ python scripts/sim_biped.py
 
 #### Quadruped Robot
 
-The quadruped has 12 position-controlled joints (3 per leg):
-- Hip, knee, and ankle joints for each leg
-- Enables complex walking gaits and movements
+The quadruped features 12 position-controlled joints distributed across its four legs:
+- **3 joints per leg**: Hip, knee, and ankle
+- Allows for 3 DOF per leg
 
 ```bash
 python scripts/sim_quadruped.py
