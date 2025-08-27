@@ -87,7 +87,12 @@ def policy(dt: float, state: RobotState) -> np.ndarray:
     
     # Implement your control logic here
     # Return desired actions (joint positions/velocities)
-    return np.zeros(4)  # For biped (4 actuators)
+    return np.array([
+        0, # Left leg joint position (radians)
+        1, # Right leg joint position (radians)
+        2, # Left wheel velocity (radians/seconds)
+        3, # Right wheel velocity (radians/second)
+    ])  # For biped (4 actuators)
     # return np.zeros(12)  # For quadruped (12 actuators)
 ```
 
