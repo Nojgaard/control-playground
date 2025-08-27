@@ -4,8 +4,10 @@ A hands-on introduction to control theory through physics-based simulation of bi
 
 ## Introduction
 
-This project offers two distinct robotic platforms for exploring control theory concepts:
-
+This project offers four distinct robotic platforms for exploring control theory concepts:
+- **Inverted pendulum**: A cart pole inverted pendulum with 1 force controlled actuator. Useful to model self balancing controllers with e.g. PID.
+- **Roomba Robot**: A roomba style robot with 2 velocity controlled actuators. 
+Useful to model differential drive kinematics.
 - **Biped Robot**: A wheeled two-legged robot with 4 actuators (2 hip position controllers, 2 wheel velocity controllers)
 - **Quadruped Robot**: A four-legged walking robot with 12 position actuators (3 joints per leg: hip, knee, ankle)
 
