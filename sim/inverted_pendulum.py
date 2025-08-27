@@ -11,7 +11,7 @@ from sim.observables import RobotObservables
 
 class Robot(Entity):
     def __init__(self):
-        self._model_path = os.path.join("mjcf", "roomba", "robot.xml")
+        self._model_path = os.path.join("mjcf", "inverted_pendulum", "robot.xml")
         super().__init__()
 
     def _build(self):
@@ -30,13 +30,13 @@ class Robot(Entity):
         return super().observables
 
 
-class Roomba(composer.Task):
+class InvertedPendulum(composer.Task):
     def __init__(self, control_timestep: float = 0.01):
         super().__init__()
 
         self._robot = Robot()
         self._arena = Floor(reflectance=0.0)
-        self._arena.add_free_entity(self._robot)
+        self._arena.attach(self._robot)
         self.set_timesteps(control_timestep, physics_timestep=0.005)
 
         self._robot.observables.joint_positions.enabled = True
@@ -48,16 +48,6 @@ class Roomba(composer.Task):
 
     def initialize_episode(self, physics: Physics, random_state):
         self._robot.set_pose(physics, np.array([0, 0, 0]), np.array([1, 0, 0, 0]))
-
-    @property
-    def wheel_radius(self):
-        """Radius of the robot's wheels (in meters)."""
-        return 0.035
-
-    @property
-    def wheel_separation(self):
-        """Distance between the wheels (in meters)."""
-        return 0.24
 
     @property
     def root_entity(self):

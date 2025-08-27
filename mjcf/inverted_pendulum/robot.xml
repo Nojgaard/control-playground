@@ -1,0 +1,58 @@
+<mujoco model="robot">
+    <compiler angle="radian"/>
+
+    <default>
+        <geom density="1000" friction="1 0.005 0.0001"/>
+        <joint damping="0.1" armature="0.01" frictionloss="0.01"/>
+
+        <default class="cart">
+            <geom type="box" rgba="0.3 0.3 0.8 1" contype="1" conaffinity="1"/>
+        </default>
+        <default class="pole">
+            <geom type="cylinder" rgba="0.8 0.3 0.3 1" contype="1" conaffinity="1"/>
+        </default>
+        <default class="track">
+            <!-- Make the track visual-only to avoid collisions -->
+            <geom type="box" rgba="0.5 0.5 0.5 1" contype="0" conaffinity="0"/>
+        </default>
+    </default>
+
+    <worldbody>
+        <!-- Visual track (non-colliding) -->
+        <geom name="track" class="track" size="2.0 0.02 0.02" pos="0 0 0.075" mass="0.1"/>
+
+        <!-- Cart (slides in x) -->
+        <body name="cart" pos="0 0 0.20">
+            <site name="ImuSensor" pos="0 0 0" euler="0 0 0"/>
+            <joint name="cart_slide" type="slide" axis="1 0 0" range="-1.5 1.5"/>
+            <geom name="cart_body" class="cart" size="0.1 0.05 0.05" mass="1.0"/>
+
+            <!-- Pendulum pole attached to cart top -->
+            <body name="pole" pos="0 0 0.05" euler="0 0.05 0">
+                <!-- Slight initial tilt about the hinge axis so it clearly falls -->
+                <joint name="pole_hinge" type="hinge" axis="0 1 0" range="-3.14159 3.14159"/>
+                <geom name="pole_rod" class="pole" size="0.01 0.25" pos="0 0 0.25" mass="0.1"/>
+                <geom name="pole_tip" type="sphere" size="0.05" pos="0 0 0.5" rgba="0.8 0.8 0.3 1" mass="0.2"/>
+            </body>
+        </body>
+    </worldbody>
+
+    <contact>
+        <!-- Exclude internal collisions -->
+        <exclude body1="cart" body2="pole"/>
+    </contact>
+
+    <actuator>
+        <!-- Force actuator for cart movement -->
+        <motor name="cart_motor" joint="cart_slide"
+               ctrllimited="true" ctrlrange="-50 50"
+               forcelimited="true" forcerange="-200 200" gear="1"/>
+    </actuator>
+
+    <sensor>
+        <framequat name="ImuSensor_Framequat" objtype="site" objname="ImuSensor"/>
+        <velocimeter name="ImuSensor_Velocimeter" site="ImuSensor"/>
+        <gyro name="ImuSensor_Gyro" site="ImuSensor"/>
+        <accelerometer name="ImuSensor_Accelerometer" site="ImuSensor"/>
+    </sensor>
+</mujoco>
